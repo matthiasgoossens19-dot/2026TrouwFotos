@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import UploadZone from "@/components/UploadZone";
 import Gallery from "@/components/Gallery";
 
@@ -9,45 +10,73 @@ export default function Home() {
   const [tab, setTab] = useState<"upload" | "gallery">("upload");
 
   return (
-    <main className="min-h-screen bg-[#fdf8f4]">
-      {/* Header */}
-      <header className="text-center py-12 px-4">
-        <p className="text-blush tracking-[0.3em] text-sm uppercase mb-3">Share your memories</p>
-        <h1 className="text-4xl md:text-5xl text-gray-800 font-serif">Our Wedding Day</h1>
-        <p className="text-gray-500 mt-3 text-sm max-w-md mx-auto">
-          Every photo tells a piece of our story. Upload yours and help us relive this beautiful day together.
+    <main className="min-h-screen bg-[#faf6f0]">
+
+      {/* Hero */}
+      <header className="relative flex flex-col items-center text-center px-6 pt-14 pb-0 overflow-hidden">
+
+        {/* Decorative top line */}
+        <p className="text-[#b89b72] tracking-[0.35em] text-xs uppercase mb-5 font-sans font-light">
+          20 juni 2026
         </p>
-        <div className="mt-3 flex justify-center gap-2 text-champagne text-2xl select-none">
-          <span>❀</span><span>♥</span><span>❀</span>
+
+        {/* Names */}
+        <h1 className="font-script text-6xl md:text-7xl text-[#5c4a32] leading-tight">
+          Anneleen & Matthias
+        </h1>
+
+        {/* Divider */}
+        <div className="flex items-center gap-3 my-5">
+          <div className="h-px w-16 bg-[#b89b72]" />
+          <span className="text-[#b89b72] text-lg">♥</span>
+          <div className="h-px w-16 bg-[#b89b72]" />
+        </div>
+
+        {/* Tagline */}
+        <p className="text-[#7a6650] text-sm font-light max-w-xs leading-relaxed">
+          Deel jouw foto&apos;s van onze trouwdag.<br />
+          Elk beeld vertelt een stukje van ons verhaal.
+        </p>
+
+        {/* Venue illustration */}
+        <div className="mt-8 w-full max-w-lg mx-auto">
+          <Image
+            src="/venue.png"
+            alt="Trouwlocatie Anneleen & Matthias"
+            width={800}
+            height={600}
+            className="w-full h-auto object-contain"
+            priority
+          />
         </div>
       </header>
 
       {/* Tab switcher */}
-      <div className="flex justify-center gap-3 mb-8 px-4">
+      <div className="flex justify-center gap-3 mt-8 mb-8 px-4">
         <button
           onClick={() => setTab("upload")}
-          className={`px-6 py-2 rounded-full text-sm font-semibold transition-colors ${
+          className={`px-7 py-2.5 rounded-full text-sm transition-all border ${
             tab === "upload"
-              ? "bg-rose text-white shadow"
-              : "bg-white text-gray-500 border border-blush hover:bg-champagne"
+              ? "bg-[#b89b72] text-white border-[#b89b72] shadow-sm"
+              : "bg-white text-[#7a6650] border-[#d6c4a8] hover:bg-[#f3ece0]"
           }`}
         >
-          Upload Photos
+          Foto&apos;s uploaden
         </button>
         <button
           onClick={() => setTab("gallery")}
-          className={`px-6 py-2 rounded-full text-sm font-semibold transition-colors ${
+          className={`px-7 py-2.5 rounded-full text-sm transition-all border ${
             tab === "gallery"
-              ? "bg-rose text-white shadow"
-              : "bg-white text-gray-500 border border-blush hover:bg-champagne"
+              ? "bg-[#b89b72] text-white border-[#b89b72] shadow-sm"
+              : "bg-white text-[#7a6650] border-[#d6c4a8] hover:bg-[#f3ece0]"
           }`}
         >
-          View Gallery
+          Galerij bekijken
         </button>
       </div>
 
       {/* Content */}
-      <div className="max-w-5xl mx-auto px-4 pb-16">
+      <div className="max-w-5xl mx-auto px-4 pb-20">
         {tab === "upload" ? (
           <UploadZone
             onUploadSuccess={() => {
@@ -61,9 +90,10 @@ export default function Home() {
       </div>
 
       {/* Footer */}
-      <footer className="text-center text-gray-400 text-xs pb-8">
-        Made with ♥ for our special day
+      <footer className="text-center text-[#b89b72] text-xs pb-10 font-script text-lg">
+        Anneleen & Matthias — 20.06.2026
       </footer>
+
     </main>
   );
 }
