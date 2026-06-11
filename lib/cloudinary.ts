@@ -19,8 +19,9 @@ export interface WeddingPhoto {
 
 export async function getWeddingPhotos(): Promise<WeddingPhoto[]> {
   const result = await cloudinary.search
-    .expression("folder:wedding-photos")
+    .expression("folder:wedding-photos AND moderation_status:approved")
     .with_field("context")
+    .with_field("moderation")
     .sort_by("created_at", "desc")
     .max_results(200)
     .execute();
