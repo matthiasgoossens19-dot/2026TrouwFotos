@@ -21,16 +21,16 @@ export default function Gallery() {
 
   if (loading) {
     return (
-      <div className="text-center py-16 text-gray-400 text-sm animate-pulse">
-        Loading photos…
+      <div className="text-center py-16 text-[#b89b72] text-sm animate-pulse">
+        Foto&apos;s laden…
       </div>
     );
   }
 
   if (photos.length === 0) {
     return (
-      <div className="text-center py-16 text-gray-400 text-sm">
-        No photos yet — be the first to share! 🌸
+      <div className="text-center py-16 text-[#b89b72] text-sm">
+        Nog geen foto&apos;s — wees de eerste! 🌸
       </div>
     );
   }

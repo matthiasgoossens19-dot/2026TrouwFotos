@@ -28,8 +28,8 @@ export default function UploadZone({ onUploadSuccess }: UploadZoneProps) {
   });
 
   const handleUpload = async () => {
-    if (!name.trim()) { setError("Please enter your name."); return; }
-    if (files.length === 0) { setError("Please select at least one photo."); return; }
+    if (!name.trim()) { setError("Vul jouw naam in."); return; }
+    if (files.length === 0) { setError("Selecteer minstens één foto."); return; }
 
     setUploading(true);
     setProgress(0);
@@ -40,7 +40,7 @@ export default function UploadZone({ onUploadSuccess }: UploadZoneProps) {
       fd.append("file", files[i]);
       fd.append("name", name.trim());
       const res = await fetch("/api/upload", { method: "POST", body: fd });
-      if (!res.ok) { setError("Upload failed. Please try again."); setUploading(false); return; }
+      if (!res.ok) { setError("Upload mislukt. Probeer opnieuw."); setUploading(false); return; }
       setProgress(Math.round(((i + 1) / files.length) * 100));
     }
 
@@ -54,15 +54,15 @@ export default function UploadZone({ onUploadSuccess }: UploadZoneProps) {
     <div className="w-full max-w-xl mx-auto space-y-5">
       {/* Name field */}
       <div>
-        <label className="block text-sm text-rose-700 mb-1 font-semibold tracking-wide uppercase">
-          Your name
+        <label className="block text-xs text-[#b89b72] mb-1 font-semibold tracking-widest uppercase">
+          Jouw naam
         </label>
         <input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="Jane & John"
-          className="w-full border border-blush rounded-lg px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blush bg-white"
+          placeholder="bv. Sarah & Tom"
+          className="w-full border border-[#d6c4a8] rounded-lg px-4 py-2 text-[#5c4a32] focus:outline-none focus:ring-2 focus:ring-[#b89b72] bg-white"
         />
       </div>
 
@@ -70,15 +70,15 @@ export default function UploadZone({ onUploadSuccess }: UploadZoneProps) {
       <div
         {...getRootProps()}
         className={`border-2 border-dashed rounded-2xl p-10 text-center cursor-pointer transition-colors ${
-          isDragActive ? "border-rose bg-blush/20" : "border-blush bg-champagne/30 hover:bg-champagne/60"
+          isDragActive ? "border-[#b89b72] bg-[#f3ece0]" : "border-[#d6c4a8] bg-[#faf6f0] hover:bg-[#f3ece0]"
         }`}
       >
         <input {...getInputProps()} />
         <p className="text-4xl mb-3">📷</p>
-        <p className="text-gray-600 text-sm">
-          {isDragActive ? "Drop your photos here…" : "Drag & drop photos here, or click to browse"}
+        <p className="text-[#7a6650] text-sm">
+          {isDragActive ? "Laat je foto's los…" : "Sleep je foto's hierheen, of klik om te bladeren"}
         </p>
-        <p className="text-gray-400 text-xs mt-1">JPG, PNG, HEIC, WEBP supported</p>
+        <p className="text-[#b89b72] text-xs mt-1">JPG, PNG, HEIC, WEBP</p>
       </div>
 
       {/* Selected files list */}
@@ -113,17 +113,17 @@ export default function UploadZone({ onUploadSuccess }: UploadZoneProps) {
 
       {/* Success */}
       {done && (
-        <p className="text-sage font-semibold text-center">
-          ✨ Thank you! Your photos have been shared.
+        <p className="text-[#7a9e7a] font-semibold text-center">
+          ✨ Merci! Jouw foto&apos;s zijn gedeeld.
         </p>
       )}
 
       <button
         onClick={handleUpload}
         disabled={uploading || files.length === 0}
-        className="w-full bg-rose text-white py-3 rounded-xl font-semibold tracking-wide hover:bg-rose-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+        className="w-full bg-[#b89b72] text-white py-3 rounded-xl font-semibold tracking-wide hover:bg-[#a08660] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
       >
-        {uploading ? `Uploading… ${progress}%` : `Share ${files.length > 0 ? files.length : ""} Photo${files.length !== 1 ? "s" : ""}`}
+        {uploading ? `Bezig met uploaden… ${progress}%` : `Deel ${files.length > 0 ? files.length : ""} foto${files.length !== 1 ? "\'s" : ""}`}
       </button>
     </div>
   );
