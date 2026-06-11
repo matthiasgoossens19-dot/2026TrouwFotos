@@ -19,6 +19,7 @@ export async function POST(req: NextRequest) {
             folder: "wedding-photos",
             context: `uploader_name=${uploaderName}`,
             transformation: [{ quality: "auto", fetch_format: "auto" }],
+            moderation: "aws_rek",
           },
           (error, result) => {
             if (error || !result) return reject(error);
