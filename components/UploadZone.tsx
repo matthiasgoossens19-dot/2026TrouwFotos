@@ -51,10 +51,11 @@ export default function UploadZone({ onUploadSuccess }: UploadZoneProps) {
   };
 
   return (
-    <div className="w-full max-w-xl mx-auto space-y-5">
+    <div className="w-full max-w-lg mx-auto bg-white rounded-2xl shadow-sm border border-[#ede4d6] p-8 space-y-6">
+
       {/* Name field */}
       <div>
-        <label className="block text-xs text-[#b89b72] mb-1 font-semibold tracking-widest uppercase">
+        <label className="block text-xs text-[#b89b72] mb-2 tracking-widest uppercase">
           Jouw naam
         </label>
         <input
@@ -62,34 +63,36 @@ export default function UploadZone({ onUploadSuccess }: UploadZoneProps) {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="bv. Sarah & Tom"
-          className="w-full border border-[#d6c4a8] rounded-lg px-4 py-2 text-[#5c4a32] focus:outline-none focus:ring-2 focus:ring-[#b89b72] bg-white"
+          className="w-full border border-[#e0d4c0] rounded-xl px-4 py-3 text-[#5c4a32] text-sm focus:outline-none focus:ring-2 focus:ring-[#b89b72] bg-[#faf6f0] placeholder-[#c4b49a]"
         />
       </div>
 
       {/* Drop zone */}
       <div
         {...getRootProps()}
-        className={`border-2 border-dashed rounded-2xl p-10 text-center cursor-pointer transition-colors ${
-          isDragActive ? "border-[#b89b72] bg-[#f3ece0]" : "border-[#d6c4a8] bg-[#faf6f0] hover:bg-[#f3ece0]"
+        className={`border-2 border-dashed rounded-xl p-10 text-center cursor-pointer transition-colors ${
+          isDragActive
+            ? "border-[#b89b72] bg-[#f3ece0]"
+            : "border-[#ddd0bb] bg-[#fdf9f4] hover:bg-[#f3ece0] hover:border-[#b89b72]"
         }`}
       >
         <input {...getInputProps()} />
-        <p className="text-4xl mb-3">📷</p>
+        <p className="text-3xl mb-3">📷</p>
         <p className="text-[#7a6650] text-sm">
-          {isDragActive ? "Laat je foto's los…" : "Sleep je foto's hierheen, of klik om te bladeren"}
+          {isDragActive ? "Laat je foto&apos;s los…" : "Sleep je foto's hierheen, of klik om te bladeren"}
         </p>
-        <p className="text-[#b89b72] text-xs mt-1">JPG, PNG, HEIC, WEBP</p>
+        <p className="text-[#c4b49a] text-xs mt-2">JPG · PNG · HEIC · WEBP</p>
       </div>
 
-      {/* Selected files list */}
+      {/* Selected files */}
       {files.length > 0 && (
-        <ul className="text-sm text-gray-500 space-y-1 max-h-32 overflow-y-auto">
+        <ul className="text-xs text-[#7a6650] space-y-1.5 max-h-32 overflow-y-auto">
           {files.map((f, i) => (
-            <li key={i} className="flex justify-between">
+            <li key={i} className="flex justify-between items-center bg-[#faf6f0] rounded-lg px-3 py-1.5">
               <span className="truncate">{f.name}</span>
               <button
                 onClick={() => setFiles((prev) => prev.filter((_, j) => j !== i))}
-                className="ml-2 text-rose-400 hover:text-rose-600 text-xs"
+                className="ml-2 text-[#c4b49a] hover:text-[#b89b72] text-sm"
               >
                 ✕
               </button>
@@ -99,13 +102,13 @@ export default function UploadZone({ onUploadSuccess }: UploadZoneProps) {
       )}
 
       {/* Error */}
-      {error && <p className="text-red-500 text-sm">{error}</p>}
+      {error && <p className="text-red-400 text-sm text-center">{error}</p>}
 
-      {/* Progress */}
+      {/* Progress bar */}
       {uploading && (
-        <div className="w-full bg-champagne rounded-full h-2">
+        <div className="w-full bg-[#ede4d6] rounded-full h-1.5">
           <div
-            className="bg-rose h-2 rounded-full transition-all duration-300"
+            className="bg-[#b89b72] h-1.5 rounded-full transition-all duration-300"
             style={{ width: `${progress}%` }}
           />
         </div>
@@ -113,17 +116,22 @@ export default function UploadZone({ onUploadSuccess }: UploadZoneProps) {
 
       {/* Success */}
       {done && (
-        <p className="text-[#7a9e7a] font-semibold text-center">
+        <p className="text-[#8a9e8a] text-sm font-semibold text-center">
           ✨ Merci! Jouw foto&apos;s zijn gedeeld.
         </p>
       )}
 
+      {/* Upload button */}
       <button
         onClick={handleUpload}
         disabled={uploading || files.length === 0}
-        className="w-full bg-[#b89b72] text-white py-3 rounded-xl font-semibold tracking-wide hover:bg-[#a08660] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+        className="w-full bg-[#b89b72] text-white py-3 rounded-xl text-sm tracking-wide hover:bg-[#a08660] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
       >
-        {uploading ? `Bezig met uploaden… ${progress}%` : `Deel ${files.length > 0 ? files.length : ""} foto${files.length !== 1 ? "\'s" : ""}`}
+        {uploading
+          ? `Bezig met uploaden… ${progress}%`
+          : files.length > 0
+          ? `Deel ${files.length} foto${files.length !== 1 ? "'s" : ""}`
+          : "Deel jouw foto's"}
       </button>
     </div>
   );
